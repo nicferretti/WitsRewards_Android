@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_gradient"
+        tools:context=".Register">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/white_circle"
+            android:src="@drawable/wits_logo"
+            />
+
+
+        <EditText
+            android:id="@+id/StudentNo"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:background="@android:color/white"
+            android:hint="Student Number"
+            android:inputType="number"
+            android:maxLength="7"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/EnterName"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EnterPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="71dp"
+            android:layout_marginTop="31dp"
+            android:background="@android:color/white"
+            android:hint="Name"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/EnterSurname"
+            android:layout_width="235dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EnterName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="34dp"
+            android:background="@android:color/white"
+            android:hint="Surname"
+
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+
+        <Spinner
+            android:id="@+id/YOS"
+            android:layout_width="165dp"
+            android:layout_height="37dp"
+            android:layout_below="@+id/EnterSurname"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="49dp"
+            android:layout_marginRight="-335dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown">
+
+        </Spinner>
+
+
+        <EditText
+            android:id="@+id/EnterPassword"
+            android:layout_width="235dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/StudentNo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="30dp"
+            android:background="@android:color/white"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+
+        <Button
+            android:id="@+id/registerButton2"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EnterPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="246dp"
+            android:layout_marginRight="32dp"
+            android:background="@android:color/white"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="Complete Registration"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EnterSurname"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="Year of Study:"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</ScrollView>

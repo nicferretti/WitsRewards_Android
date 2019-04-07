@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutActivity"
+    android:background = "@drawable/aboutbackground"
+    >
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="25dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="172dp"
+        app:srcCompat="@drawable/wits_logo" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="50dp" />
+
+    <ExpandableListView
+        android:id="@+id/exp_listview"
+        android:layout_width="match_parent"
+        android:layout_height="315dp">
+
+    </ExpandableListView>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="30dp" />
+
+    <Button
+        android:id="@+id/IUnderstand"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="I understand"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"
+        >
+    </Button>
+
+</LinearLayout>
