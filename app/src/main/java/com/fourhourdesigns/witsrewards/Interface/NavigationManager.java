@@ -1,4 +1,4 @@
-package com.example.witsrewards.Interface;
+package com.fourhourdesigns.witsrewards.Interface;
 
 public interface NavigationManager {
     void showFragment(String title);

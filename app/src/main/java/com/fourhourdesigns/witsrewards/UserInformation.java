@@ -1,4 +1,4 @@
-package com.example.witsrewards;
+package com.fourhourdesigns.witsrewards;
 
 public class UserInformation {
 

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         multiDexEnabled true
-        applicationId "com.example.witsrewards"
+        applicationId "com.fourhourdesigns.witsrewards"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -15,6 +15,21 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions "witsrewards"
+    productFlavors {
+        dev {
+            applicationId "com.fourhourdesigns.witsrewards.dev"
+            resValue "string", "app_name", "Gyro Dev"
+            //Config fields
+//            buildConfigField 'String', 'CONFIG_NAME', '"CONFIG_VALUE"'
+        }
+        production {
+            applicationId "com.fourhourdesigns.witsrewards"
+            resValue "string", "app_name", "WitsRewards"
+            //Config Fields
+//            buildConfigField 'String', 'CONFIG_NAME', '"CONFIG_VALUE"'
         }
     }
 }

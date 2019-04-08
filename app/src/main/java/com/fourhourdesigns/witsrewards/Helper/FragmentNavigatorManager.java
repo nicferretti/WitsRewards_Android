@@ -1,14 +1,14 @@
-package com.example.witsrewards.Helper;
+package com.fourhourdesigns.witsrewards.Helper;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.example.witsrewards.BuildConfig;
-import com.example.witsrewards.Fragment.FragmentContent;
-import com.example.witsrewards.Interface.NavigationManager;
-import com.example.witsrewards.HomeActivity;
-import com.example.witsrewards.R;
+import com.fourhourdesigns.witsrewards.BuildConfig;
+import com.fourhourdesigns.witsrewards.Fragment.FragmentContent;
+import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
+import com.fourhourdesigns.witsrewards.HomeActivity;
+import com.fourhourdesigns.witsrewards.R;
 
 public class FragmentNavigatorManager implements NavigationManager {
     private static FragmentNavigatorManager mInstance;

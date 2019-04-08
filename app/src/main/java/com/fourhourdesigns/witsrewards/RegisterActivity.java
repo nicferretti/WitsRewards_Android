@@ -1,4 +1,4 @@
-package com.example.witsrewards;
+package com.fourhourdesigns.witsrewards;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
