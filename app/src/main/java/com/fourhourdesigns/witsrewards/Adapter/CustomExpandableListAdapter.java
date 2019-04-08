@@ -1,4 +1,4 @@
-package com.example.witsrewards.Adapter;
+package com.fourhourdesigns.witsrewards.Adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.witsrewards.R;
+import com.fourhourdesigns.witsrewards.R;
 
 import java.util.List;
 import java.util.Map;

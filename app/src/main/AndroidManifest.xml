@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.witsrewards">
+    package="com.fourhourdesigns.witsrewards">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".AboutActivity"
+            android:name="com.fourhourdesigns.witsrewards.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.fourhourdesigns.witsrewards.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HomeActivity"
+            android:name="com.fourhourdesigns.witsrewards.HomeActivity"
             android:label="HomeActivity"
             android:theme="@style/Theme.AppCompat.Light"
              />
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.fourhourdesigns.witsrewards.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

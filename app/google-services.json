@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:320829528343:android:11403b7096953d4a",
         "android_client_info": {
-          "package_name": "com.example.witsrewards"
+          "package_name": "com.fourhourdesigns.witsrewards"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "320829528343-tm4q4j8gkl4utrkgn42d6180hrp8gc9m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.witsrewards",
+            "package_name": "com.fourhourdesigns.witsrewards",
             "certificate_hash": "a65f2316b8accfd16b0b66f33eec9ea0538de83b"
           }
         }

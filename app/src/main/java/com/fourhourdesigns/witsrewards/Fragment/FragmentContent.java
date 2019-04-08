@@ -1,15 +1,14 @@
-package com.example.witsrewards.Fragment;
+package com.fourhourdesigns.witsrewards.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.witsrewards.R;
+import com.fourhourdesigns.witsrewards.R;
 
 
 public class FragmentContent extends Fragment {
