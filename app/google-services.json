@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:320829528343:android:11403b7096953d4a",
         "android_client_info": {
-          "package_name": "com.fourhourdesigns.witsrewards"
+          "package_name": "com.example.witsrewards"
         }
       },
       "oauth_client": [
@@ -18,11 +18,59 @@
           "client_id": "320829528343-tm4q4j8gkl4utrkgn42d6180hrp8gc9m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.fourhourdesigns.witsrewards",
+            "package_name": "com.example.witsrewards",
             "certificate_hash": "a65f2316b8accfd16b0b66f33eec9ea0538de83b"
           }
         }
       ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8EepoyN7h3PA9__7lBfhKHSUmGEnFjRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320829528343-rd817rfd5v1dnlogoks20qjifvnmm86r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320829528343:android:b75186d7e21f814a",
+        "android_client_info": {
+          "package_name": "com.fourhourdesigns.witsrewards"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8EepoyN7h3PA9__7lBfhKHSUmGEnFjRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320829528343-rd817rfd5v1dnlogoks20qjifvnmm86r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320829528343:android:aa021d05c37bdfee",
+        "android_client_info": {
+          "package_name": "com.fourhourdesigns.witsrewards.dev"
+        }
+      },
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyA8EepoyN7h3PA9__7lBfhKHSUmGEnFjRo"
