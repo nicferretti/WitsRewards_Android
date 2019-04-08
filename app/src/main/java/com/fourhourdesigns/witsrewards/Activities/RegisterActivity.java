@@ -1,4 +1,4 @@
-package com.fourhourdesigns.witsrewards;
+package com.fourhourdesigns.witsrewards.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 
+import com.fourhourdesigns.witsrewards.R;
+import com.fourhourdesigns.witsrewards.UserInformation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

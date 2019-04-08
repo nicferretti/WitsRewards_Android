@@ -1,4 +1,4 @@
-package com.fourhourdesigns.witsrewards;
+package com.fourhourdesigns.witsrewards.Activities;
 
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
@@ -16,6 +16,7 @@ import android.widget.ExpandableListView;
 import com.fourhourdesigns.witsrewards.Adapter.CustomExpandableListAdapter;
 import com.fourhourdesigns.witsrewards.Helper.FragmentNavigatorManager;
 import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
+import com.fourhourdesigns.witsrewards.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

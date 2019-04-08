@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.fourhourdesigns.witsrewards.AboutActivity"
+            android:name="com.fourhourdesigns.witsrewards.Activities.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name="com.fourhourdesigns.witsrewards.RegisterActivity"
+            android:name="com.fourhourdesigns.witsrewards.Activities.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.fourhourdesigns.witsrewards.HomeActivity"
+            android:name="com.fourhourdesigns.witsrewards.Activities.HomeActivity"
             android:label="HomeActivity"
             android:theme="@style/Theme.AppCompat.Light"
              />
-        <activity android:name="com.fourhourdesigns.witsrewards.LoginActivity">
+        <activity android:name="com.fourhourdesigns.witsrewards.Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
