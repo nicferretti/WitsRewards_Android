@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">WitsRewards</string>
     <string name="register_here"><u>Register Here</u></string>
-    <string name="loginStudentNumber">Student Number</string>
+    <string name="loginStudentEmail">Student Email</string>
     <string name="loginPassword">Password</string>
     <string name="username">username</string>
     <string name="password">password</string>

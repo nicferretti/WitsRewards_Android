@@ -26,24 +26,25 @@
 
 
         <EditText
-            android:id="@+id/StudentNo"
-            android:layout_width="235dp"
+            android:id="@+id/EnterEmail"
+            android:ems="10"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_image"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
             android:background="@android:color/white"
-            android:hint="Student Number"
-            android:inputType="number"
-            android:maxLength="7"
+            android:hint="Student Email"
+            android:inputType="textEmailAddress"
             android:textAlignment="center"
             android:textSize="24sp" />
 
         <EditText
             android:id="@+id/EnterName"
-            android:layout_width="235dp"
+            android:ems="10"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/EnterPassword"
+            android:layout_below="@+id/VerifyPassword"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="71dp"
             android:layout_marginTop="31dp"
@@ -55,7 +56,8 @@
 
         <EditText
             android:id="@+id/EnterSurname"
-            android:layout_width="235dp"
+            android:ems="10"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/EnterName"
             android:layout_centerHorizontal="true"
@@ -85,9 +87,9 @@
 
         <EditText
             android:id="@+id/EnterPassword"
-            android:layout_width="235dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_below="@id/StudentNo"
+            android:layout_below="@id/EnterEmail"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="28dp"
             android:layout_marginTop="30dp"
@@ -98,22 +100,49 @@
             android:textAlignment="center"
             android:textSize="24sp" />
 
+        <EditText
+                android:id="@+id/VerifyPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_below="@id/EnterPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/white"
+                android:ems="10"
+                android:hint="Verify password"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
 
         <Button
-            android:id="@+id/registerButton2"
-            android:layout_width="168dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/EnterPassword"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="69dp"
-            android:layout_marginTop="246dp"
-            android:layout_marginRight="32dp"
-            android:background="@android:color/white"
-            android:textColor="@android:color/holo_blue_dark"
-            android:text="Complete Registration"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Button"
-            android:visibility="visible" />
+                android:id="@+id/registerButton2"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/YOS"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="69dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="32dp"
+                android:background="@android:color/white"
+                android:textColor="@android:color/holo_blue_dark"
+                android:text="Submit Registration"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                android:visibility="visible"/>
+
+        <TextView
+                android:id="@+id/RegisteredSuccessfully"
+                android:layout_margin="15dp"
+                android:textAlignment="center"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/registerButton2"
+
+        />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -125,6 +154,8 @@
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+
 
 
     </RelativeLayout>

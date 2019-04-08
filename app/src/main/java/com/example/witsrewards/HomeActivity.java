@@ -48,11 +48,11 @@ public class HomeActivity extends AppCompatActivity {
         mActivityTitle=getTitle().toString();
         expandableListView=(ExpandableListView)findViewById(R.id.navList);
         navagationManager= FragmentNavigatorManager.getmInstance(this);
-        
+
         initItems();
         View listHeaderView=getLayoutInflater().inflate(R.layout.nav_header,null,false);
         expandableListView.addHeaderView(listHeaderView);
-        
+
         genData();
 
         addDrawersItems();
