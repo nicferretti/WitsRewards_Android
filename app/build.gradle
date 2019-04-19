@@ -19,11 +19,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
     flavorDimensions "witsrewards"
     productFlavors {
         dev {
             applicationId "com.fourhourdesigns.witsrewards.dev"
-            resValue "string", "app_name", "Gyro Dev"
+            resValue "string", "app_name", "WitsRewards Dev"
             //Config fields
 //            buildConfigField 'String', 'CONFIG_NAME', '"CONFIG_VALUE"'
         }
