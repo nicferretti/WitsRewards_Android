@@ -23,7 +23,7 @@ android:
 
     # The API level used my the emulator
     - android-$EMULATOR_API
-    - sys-img-armeabi-v7a-android-$EMULATOR_API
+    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API
 
 before_install:
   - yes | sdkmanager "platforms;android-26"
