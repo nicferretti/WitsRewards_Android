@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView01"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        tools:context=".Register">
+
+        <ImageView
+                android:layout_marginTop="35dp"
+                android:id="@+id/profile_image"
+                android:layout_width="190dp"
+                android:layout_height="165dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/wits_logo"
+        />
+
+
+        <EditText
+            android:id="@+id/EnterEmail"
+            android:ems="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:hint="@string/email"
+            android:textColorHint="@color/hintColour"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <EditText
+            android:id="@+id/EnterName"
+            android:ems="10"
+            android:textColorHint="@color/hintColour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/VerifyPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:hint="@string/name"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <EditText
+            android:id="@+id/EnterSurname"
+            android:ems="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EnterName"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:hint="@string/surname"
+            android:textColorHint="@color/hintColour"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+
+        <Spinner
+            android:id="@+id/YOS"
+            android:layout_width="165dp"
+            android:layout_height="37dp"
+            android:textColorHint="@color/hintColour"
+            android:layout_below="@+id/EnterSurname"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="49dp"
+            android:spinnerMode="dropdown">
+        </Spinner>
+
+
+        <EditText
+            android:id="@+id/EnterPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EnterEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+            android:textColorHint="@color/hintColour"
+            android:hint="@string/loginPassword"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <EditText
+                android:id="@+id/VerifyPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/EnterPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:textColorHint="@color/hintColour"
+                android:hint="@string/verifyPassword"
+                android:inputType="textPassword"
+                android:textAlignment="center"
+                android:textSize="21sp" />
+
+
+        <Button
+                android:id="@+id/registerButton2"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/YOS"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:textColorHint="@color/hintColour"
+                android:background="@drawable/rounded_rectangle_register"
+                android:textColor="#cccccc"
+                android:text="@string/submitRegistration"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                />
+
+
+        <TextView
+                android:id="@+id/YearOfStudyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/EnterSurname"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/YoS"
+            android:textColor="#cccccc"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+
+
+
+
+    </RelativeLayout>
+</ScrollView>

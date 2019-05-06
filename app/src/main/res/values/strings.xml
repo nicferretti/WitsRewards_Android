@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">WitsRewards</string>
+    <string name="register_here">Not registered? Click here</string>
+    <string name="loginStudentNumber">Student Number</string>
+    <string name="loginPassword">Password</string>
+    <string name="verifyPassword">Verify Password</string>
+    <string name="submitRegistration">Submit Registration</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="email">Student email</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="close">close</string>
+    <string name="login">Log in</string>
+    <string name="name">First name</string>
+    <string name="surname">Surname</string>
+    <string name="YoS">Year of Study:</string>
+    <string name="open">open</string>
+</resources>
