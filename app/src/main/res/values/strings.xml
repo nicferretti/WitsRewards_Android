@@ -16,4 +16,6 @@
     <string name="surname">Surname</string>
     <string name="YoS">Year of Study:</string>
     <string name="open">open</string>
+    <string name="title_activity_timetable">Timetable</string>
+    <string name="title_activity_qr">QRActivity</string>
 </resources>

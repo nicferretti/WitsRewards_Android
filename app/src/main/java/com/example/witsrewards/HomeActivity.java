@@ -132,6 +132,9 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.stats) {
             Intent intent = new Intent(HomeActivity.this, StatsActivity.class);
             startActivity(intent);
+        }else if (id == R.id.qr) {
+            Intent intent = new Intent(HomeActivity.this, QRActivity.class);
+            startActivity(intent);
         }
             //startAnimationFromBackgroundThread();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
