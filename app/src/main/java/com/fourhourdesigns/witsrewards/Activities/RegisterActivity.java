@@ -9,28 +9,29 @@ import android.view.View;
 import android.widget.*;
 
 import com.fourhourdesigns.witsrewards.R;
-import com.fourhourdesigns.witsrewards.UserInformation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+import java.util.HashMap;
+import java.util.Map;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonRegister;
-    private EditText editTextEmail;
+    private EditText editTextStudentNumber;
     private EditText editTextPassword;
     private EditText editTextVerifyPassword;
     private ProgressDialog progressDialogRegister;
     private ProgressDialog progressDialogLogin;
     private EditText editTextName;
     private EditText editTextSurname;
-
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference dbRef;
-    private String YoS;
+    private FirebaseFirestore dbRef;
+    private Spinner yearsDropdown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         buttonRegister= (Button)findViewById(R.id.registerButton2);
         firebaseAuth = FirebaseAuth.getInstance();
-        editTextEmail = (EditText)findViewById(R.id.EnterEmail);
+        editTextStudentNumber = (EditText)findViewById(R.id.EnterEmail);
         editTextPassword = (EditText)findViewById(R.id.EnterPassword);
         editTextVerifyPassword = (EditText)findViewById(R.id.VerifyPassword);
         editTextName = (EditText)findViewById(R.id.EnterName);
@@ -47,13 +48,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialogRegister = new ProgressDialog(this);
         progressDialogLogin = new ProgressDialog(this);
         buttonRegister.setOnClickListener(this);
+        dbRef = FirebaseFirestore.getInstance();
+        yearsDropdown = findViewById(R.id.YOS);
 
-
-
-        dbRef = FirebaseDatabase.getInstance().getReference("User information");
-
-
-        Spinner yearsDropdown = findViewById(R.id.YOS);
         String[] years = new String[]{"1st", "2nd", "3rd","Postgraduate"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, years);
         yearsDropdown.setAdapter(adapter1);
@@ -65,55 +62,51 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 registerUser();
             }
         });
-
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            YoS = parent.getItemAtPosition(position).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     public void saveUserInformation(){
+
+        //Setting up initial user values
         String name = editTextName.getText().toString().trim();
         String surname = editTextSurname.getText().toString().trim();
+        String user_ID = firebaseAuth.getUid();
+        String YoS = yearsDropdown.getSelectedItem().toString();
+        String studentNumber = editTextStudentNumber.getText().toString().trim();
+        int AcademiaPoints = 0;
+        int UniversityPoints = 0;
+        int BusinessPoints = 0;
+        String level = "bronze";
 
-        UserInformation userInformation = new UserInformation(name, surname, YoS);
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        //Passing values to hashmap which be taken by Firebase
+        Map intialUserInformation = new HashMap();
+        intialUserInformation.put("id", user_ID);
+        intialUserInformation.put("name", name);
+        intialUserInformation.put("surname", surname);
+        intialUserInformation.put("yos", YoS);
+        intialUserInformation.put("academiaPoints", AcademiaPoints);
+        intialUserInformation.put("universityPoints", UniversityPoints);
+        intialUserInformation.put("businessPoints", BusinessPoints);
+        intialUserInformation.put("level",level);
+        intialUserInformation.put("studentNumber",studentNumber);
 
+        //Saves information in the "Users" collection and into the respective user document
+        DocumentReference dbUsers = dbRef.collection("users").document(firebaseAuth.getUid());
+        dbUsers.set(intialUserInformation);
 
-
-        dbRef.child(user.getUid()).setValue(userInformation).addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this, "Successfully saved user information", Toast.LENGTH_LONG).show();
-                }
-                if(!task.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this, "Failure", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
     }
 
     public void registerUser(){
-        String email = editTextEmail.getText().toString().trim();
+
+        //Getting email and password data
+        String email = editTextStudentNumber.getText().toString().trim() + "@students.wits.ac.za";
         String password = editTextPassword.getText().toString().trim();
         String verifyPassword = editTextVerifyPassword.getText().toString().trim();
 
         if(email.equals("")){
             //email is empty
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(!email.contains("@students.wits.ac.za")){
-            Toast.makeText(this,"Please enter a Wits student email address",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter student number", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -133,15 +126,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialogRegister.setMessage("Registering user...");
         progressDialogRegister.show();
 
+        //Create user
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     progressDialogRegister.cancel();
                     Toast.makeText(RegisterActivity.this,  "Registered successfully", Toast.LENGTH_SHORT).show();
+
+                    //Now that user has been registered, sign them in
                     userRegistrationLogin();
                 }
                 else{
+                    System.out.println(task.getResult());;
                     progressDialogRegister.cancel();
                     Toast.makeText(RegisterActivity.this,  "Could not register, try again", Toast.LENGTH_SHORT).show();
                 }
@@ -149,7 +146,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });}
 
     public void userRegistrationLogin() {
-        String email = editTextEmail.getText().toString().trim();
+
+        //Signs in user
+        String email = editTextStudentNumber.getText().toString().trim() + "@students.wits.ac.za";
         String password = editTextPassword.getText().toString().trim();
 
 
