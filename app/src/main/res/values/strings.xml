@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">WitsRewards</string>
     <string name="register_here">Not registered? Click here</string>
     <string name="loginStudentNumber">Student Number</string>
     <string name="loginPassword">Password</string>
