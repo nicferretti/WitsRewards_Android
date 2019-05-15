@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+                android:name="com.fourhourdesigns.witsrewards.Activities.QRActivity"
+                android:label="@string/title_activity_qr"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.fourhourdesigns.witsrewards.Activities.StatsActivity" />
+        <activity
             android:name="com.fourhourdesigns.witsrewards.Activities.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -24,7 +29,7 @@
         <activity
             android:name="com.fourhourdesigns.witsrewards.Activities.HomeActivity"
             android:label="HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light"
+            android:theme="@style/AppTheme.NoActionBar"
              />
         <activity android:name="com.fourhourdesigns.witsrewards.Activities.LoginActivity">
             <intent-filter>
