@@ -15,17 +15,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity  {
+public class LoginActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
-    private Button login;
     private EditText loginStudentEmail;
     private EditText loginPassword;
-    private TextView signUp;
     private FirebaseAuth mAuth;
     private Button loginButton;
     private Button registerButton;
+    private TextView error;
 
 
     @Override
@@ -39,11 +39,12 @@ public class LoginActivity extends AppCompatActivity  {
         //}
 
         mAuth = FirebaseAuth.getInstance();
-        loginStudentEmail = findViewById(R.id.loginStudentEmail);
+        loginStudentEmail = findViewById(R.id.loginStudentNumber);
         loginPassword = findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.registerButton);
         progressDialog = new ProgressDialog(this);
+        error = findViewById(R.id.error);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,18 +63,13 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
     private void userLogin() {
-        String email = loginStudentEmail.getText().toString().trim();
+        String studentNumber = loginStudentEmail.getText().toString().trim();
         String password = loginPassword.getText().toString().trim();
+        String email = studentNumber + "@students.wits.ac.za";
 
-
-        if (email.equals("")) {
+        if (studentNumber.equals("")) {
             //email is empty
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!email.contains("@students.wits.ac.za")) {
-            Toast.makeText(this, "Please enter your Wits student email address", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -92,8 +88,11 @@ public class LoginActivity extends AppCompatActivity  {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
                 if(task.isSuccessful()){
-                   // finish();
+                    FirebaseUser user = mAuth.getCurrentUser();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                }
+                if(!task.isSuccessful()){
+                    error.setText("Invalid login name or password");
                 }
             }
         });
