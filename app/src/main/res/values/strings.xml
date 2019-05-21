@@ -1,12 +1,20 @@
 <resources>
-    <string name="register_here"><u>Register Here</u></string>
-    <string name="loginStudentEmail">Student Email</string>
+    <string name="register_here">Not registered? Click here</string>
+    <string name="loginStudentNumber">Student Number</string>
     <string name="loginPassword">Password</string>
-    <string name="username">username</string>
-    <string name="password">password</string>
-    <string name="students">students</string>
+    <string name="verifyPassword">Verify Password</string>
+    <string name="submitRegistration">Submit Registration</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_about">AboutActivity</string>
-    <string name="open">open</string>
+    <string name="email">Student email</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="close">close</string>
+    <string name="login">Log in</string>
+    <string name="name">First name</string>
+    <string name="surname">Surname</string>
+    <string name="YoS">Year of Study:</string>
+    <string name="open">open</string>
+    <string name="title_activity_timetable">Timetable</string>
+    <string name="title_activity_qr">QRActivity</string>
 </resources>

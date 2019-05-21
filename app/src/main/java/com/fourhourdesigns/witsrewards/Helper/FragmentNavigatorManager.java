@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.fourhourdesigns.witsrewards.Activities.HomeActivity;
 import com.fourhourdesigns.witsrewards.BuildConfig;
 import com.fourhourdesigns.witsrewards.Fragment.FragmentContent;
 import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
-import com.fourhourdesigns.witsrewards.Activities.HomeActivity;
 import com.fourhourdesigns.witsrewards.R;
 
 public class FragmentNavigatorManager implements NavigationManager {
