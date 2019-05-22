@@ -1,44 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fourhourdesigns.witsrewards">
+          package="com.fourhourdesigns.witsrewards">
 
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+   
     <uses-feature android:name="android.hardware.camera2"/>
     <uses-feature android:name="android.hardware.camera2.autofocus"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-                android:name="com.fourhourdesigns.witsrewards.Activities.QRActivity"
-                android:label="@string/title_activity_qr"
-                android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name="com.fourhourdesigns.witsrewards.Activities.StatsActivity" />
-        <activity
-            android:name="com.fourhourdesigns.witsrewards.Activities.AboutActivity"
-            android:label="@string/title_activity_about"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name="com.fourhourdesigns.witsrewards.Activities.RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.fourhourdesigns.witsrewards.Activities.HomeActivity"
-            android:label="HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-             />
-        <activity android:name="com.fourhourdesigns.witsrewards.Activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_maps_key"/>
+
+        <activity
+                android:name=".Activities.MapsActivity"
+                android:label="@string/title_activity_maps">
+        </activity>
+        <activity
+                android:name=".Activities.QRActivity"
+                android:label="@string/title_activity_qr"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activities.StatsActivity"/>
+        <activity
+                android:name=".Activities.AboutActivity"
+                android:label="@string/title_activity_about"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".Activities.RegisterActivity"
+                android:label="@string/title_activity_register"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".Activities.HomeActivity"
+                android:label="HomeActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activities.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>
