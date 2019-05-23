@@ -40,20 +40,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        buttonRegister= (Button)findViewById(R.id.registerButton2);
+        buttonRegister = (Button) findViewById(R.id.registerButton2);
         firebaseAuth = FirebaseAuth.getInstance();
-        editTextStudentNumber = (EditText)findViewById(R.id.EnterEmail);
-        editTextPassword = (EditText)findViewById(R.id.EnterPassword);
-        editTextVerifyPassword = (EditText)findViewById(R.id.VerifyPassword);
-        editTextName = (EditText)findViewById(R.id.EnterName);
-        editTextSurname = (EditText)findViewById(R.id.EnterSurname);
+        editTextStudentNumber = (EditText) findViewById(R.id.EnterEmail);
+        editTextPassword = (EditText) findViewById(R.id.EnterPassword);
+        editTextVerifyPassword = (EditText) findViewById(R.id.VerifyPassword);
+        editTextName = (EditText) findViewById(R.id.EnterName);
+        editTextSurname = (EditText) findViewById(R.id.EnterSurname);
         progressDialogRegister = new ProgressDialog(this);
         progressDialogLogin = new ProgressDialog(this);
         buttonRegister.setOnClickListener(this);
         dbRef = FirebaseFirestore.getInstance();
         yearsDropdown = findViewById(R.id.YOS);
 
-        String[] years = new String[]{"1st", "2nd", "3rd","Postgraduate"};
+        String[] years = new String[]{"1st", "2nd", "3rd", "Postgraduate"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, years);
         yearsDropdown.setAdapter(adapter1);
 
@@ -67,8 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-    public void saveUserInformation(){
+    public void saveUserInformation() {
 
         //Setting up initial user values
         String name = editTextName.getText().toString().trim();
@@ -90,36 +89,36 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         intialUserInformation.put("academiaPoints", AcademiaPoints);
         intialUserInformation.put("universityPoints", UniversityPoints);
         intialUserInformation.put("businessPoints", BusinessPoints);
-        intialUserInformation.put("level",level);
-        intialUserInformation.put("studentNumber",studentNumber);
+        intialUserInformation.put("level", level);
+        intialUserInformation.put("studentNumber", studentNumber);
 
-        //Saves information in the "Users" collection and into the respective user document
+        //Saves information in the "users" collection and into the respective user document
         DocumentReference dbUsers = dbRef.collection("users").document(firebaseAuth.getUid());
         dbUsers.set(intialUserInformation);
 
     }
 
-    public void registerUser(){
+    public void registerUser() {
 
         //Getting email and password data
         String email = editTextStudentNumber.getText().toString().trim() + "@students.wits.ac.za";
         String password = editTextPassword.getText().toString().trim();
         String verifyPassword = editTextVerifyPassword.getText().toString().trim();
 
-        if(email.equals("")){
+        if (email.equals("")) {
             //email is empty
             Toast.makeText(this, "Please enter student number", Toast.LENGTH_SHORT).show();
             return;
         }
 
 
-        if(password.equals("")){
+        if (password.equals("")) {
             //password is empty
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(!password.equals(verifyPassword)){
+        if (!password.equals(verifyPassword)) {
             //password is empty
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
@@ -129,23 +128,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialogRegister.show();
 
         //Create user
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     progressDialogRegister.cancel();
-                    Toast.makeText(RegisterActivity.this,  "Registered successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
 
                     //Now that user has been registered, sign them in
                     userRegistrationLogin();
-                }
-                else{
-                    System.out.println(task.getResult());;
+                } else {
+                    System.out.println(task.getResult());
+                    ;
                     progressDialogRegister.cancel();
-                    Toast.makeText(RegisterActivity.this,  "Could not register, try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Could not register, try again", Toast.LENGTH_SHORT).show();
                 }
             }
-        });}
+        });
+    }
 
     public void userRegistrationLogin() {
 
@@ -157,11 +157,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressDialogLogin.setMessage("Logging in user");
         progressDialogLogin.show();
 
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialogLogin.dismiss();
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     // finish();
                     progressDialogLogin.cancel();
                     Toast.makeText(getApplicationContext(), "User logged in successfully", Toast.LENGTH_SHORT).show();
