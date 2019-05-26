@@ -55,6 +55,8 @@ public class StatsActivity extends AppCompatActivity {
                 Double BPoints = documentSnapshot.getDouble("businessPoints");
                 String level = documentSnapshot.getString("level");
 
+                Double sum = APoints + UPoints +BPoints;
+
                 //Storing the retrieved data to pass onto piechart creation
                 ArrayList<Double> temp = new ArrayList<>();
                 temp.add(APoints);
@@ -67,7 +69,8 @@ public class StatsActivity extends AppCompatActivity {
                 for(Double d: temp){
                     Points.add(d.intValue());
                 }
-                String[] labels = {"Academia Points","University Points","Business Points","Points until upgrade"};
+                String[] labels = {"Academia Points: " + APoints.intValue() + "/30","University Points: " + UPoints.intValue() + "/30","Business Points: " + BPoints.intValue() + "/40",
+                        "Points until upgrade: "+ sum.intValue() + "/100"};
 
                 addData(Points, labels, level);
             }
