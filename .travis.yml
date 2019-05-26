@@ -33,6 +33,7 @@ env:
   - SYS=15 ABI="default;armeabi-v7a"
   - SYS=14 ABI="default;armeabi-v7a"
   - SYS=10 ABI="default;armeabi-v7a"
+  #trigger build
 
 matrix:
   allow_failures:
