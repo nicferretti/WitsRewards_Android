@@ -2,6 +2,8 @@ package com.fourhourdesigns.witsrewards.Activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 
 import android.os.Build;
@@ -12,6 +14,9 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.fourhourdesigns.witsrewards.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -27,6 +32,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -52,6 +60,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
+
+    public void searchBar(View v){
+        switch (v.getId()){
+            case R.id.searchButton:
+                EditText addressField = (EditText)findViewById(R.id.location_search);
+                String address = addressField.getText().toString();
+
+                List<Address>addressList = null;
+                MarkerOptions userMarkerOptions = new MarkerOptions();
+
+                if(!TextUtils.isEmpty(address)) {
+                    Geocoder geocoder = new Geocoder(this);
+                    try {
+                        addressList = geocoder.getFromLocationName(address, 3);
+
+                        if (addressList != null) {
+                            for (int i = 0; i < addressList.size(); i++) {
+                                Address userAddress = addressList.get(i);
+                                LatLng latLng = new LatLng(userAddress.getLatitude(), userAddress.getLongitude());
+
+                                userMarkerOptions.position(latLng);
+                                userMarkerOptions.title(address);
+
+                                userMarkerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                mMap.animateCamera(CameraUpdateFactory.zoomBy(16));
+
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                    break;
+
+
+
+
+
+        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

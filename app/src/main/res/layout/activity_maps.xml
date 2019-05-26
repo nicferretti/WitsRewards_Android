@@ -1,8 +1,56 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          xmlns:map="http://schemas.android.com/apk/res-auto"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/map"
-          tools:context="com.fourhourdesigns.witsrewards.Activities.MapsActivity"
-          android:name="com.google.android.gms.maps.SupportMapFragment"/>
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        
+        <EditText
+                android:id="@+id/location_search"
+                android:layout_width="314dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:hint="Search Any Venue"
+                android:textColorHint="#FFFFFF"
+
+                android:background="@drawable/gradient_background"
+
+        />
+
+        <Button     android:id="@+id/searchButton"
+                    android:text="Go"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/gradient_background"
+                     android:layout_height="50dp"
+                     android:layout_alignParentTop="true"
+                     android:layout_alignParentEnd="true"
+                    android:textColor="#FFFFFF"
+                     android:onClick="searchBar"
+
+
+        />
+
+    </RelativeLayout>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:map="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="45dp"
+              android:layout_alignParentTop="true"
+              android:layout_alignParentStart="true"
+              android:id="@+id/map"
+              tools:context="com.fourhourdesigns.witsrewards.Activities.MapsActivity"
+              android:name="com.google.android.gms.maps.SupportMapFragment"/>
+</RelativeLayout>
+
+
+
+
+
+
+
