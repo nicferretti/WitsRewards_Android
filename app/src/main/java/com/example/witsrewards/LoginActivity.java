@@ -49,20 +49,32 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                registerOnClick();
             }
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userLogin();
+                loginOnClick();
             }
         });
     }
 
-    private String getPassword() {
+    public boolean loginOnClick(){
+        String studentNumber = loginStudentEmail.getText().toString();
+        String password = loginPassword.getText().toString();
+        userLogin(studentNumber,password);
+        return true;
+    }
+
+    public Intent registerOnClick(){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        return intent;
+    }
+
+    public String getPassword() {
         String password = loginPassword.getText().toString().trim();
         if (password.equals("")) {
             //password is empty
@@ -71,9 +83,8 @@ public class LoginActivity extends AppCompatActivity {
         return password;
     }
 
-    private String getStudentNumber() {
+    public String getStudentNumber() {
         String studentNumber = loginStudentEmail.getText().toString().trim();
-        String email = studentNumber + "@students.wits.ac.za";
 
         if (studentNumber.equals("")) {
             //email is empty
@@ -82,13 +93,12 @@ public class LoginActivity extends AppCompatActivity {
         return studentNumber;
     }
 
-    private void userLogin() {
-        String studentNumber = getStudentNumber();
+    public Intent userLogin(String studentNumber,String password) {
         String email = studentNumber + "@students.wits.ac.za";
-        String password = getPassword();
+        final Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
 
-        if (studentNumber.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            return;
+        if (studentNumber.isEmpty() || password.isEmpty()) {
+            return null;
         }
 
         progressDialog.setMessage("Logging in user");
@@ -100,13 +110,14 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    startActivity(intent);
                 }
                 if (!task.isSuccessful()) {
                     error.setText("Invalid login name or password");
                 }
             }
         });
+        return intent;
     }
 }
 

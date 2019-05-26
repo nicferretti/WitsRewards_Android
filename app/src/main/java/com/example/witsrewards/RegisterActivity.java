@@ -19,6 +19,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,20 +62,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                String studentNumber = editTextStudentNumber.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
+                String verifyPassword = editTextVerifyPassword.getText().toString().trim();
+                registerUser(studentNumber,password,verifyPassword);
             }
         });
     }
 
 
-    public void saveUserInformation() {
+    public Map saveUserInformation(String uID,String name, String surname, String YoS, String studentNumber) {
 
         //Setting up initial user values
-        String name = editTextName.getText().toString().trim();
-        String surname = editTextSurname.getText().toString().trim();
-        String user_ID = firebaseAuth.getUid();
-        String YoS = yearsDropdown.getSelectedItem().toString();
-        String studentNumber = editTextStudentNumber.getText().toString().trim();
         int AcademiaPoints = 0;
         int UniversityPoints = 0;
         int BusinessPoints = 0;
@@ -82,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //Passing values to hashmap which be taken by Firebase
         Map intialUserInformation = new HashMap();
-        intialUserInformation.put("id", user_ID);
+        intialUserInformation.put("id", uID);
         intialUserInformation.put("name", name);
         intialUserInformation.put("surname", surname);
         intialUserInformation.put("yos", YoS);
@@ -93,41 +92,47 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         intialUserInformation.put("studentNumber", studentNumber);
 
         //Saves information in the "users" collection and into the respective user document
-        DocumentReference dbUsers = dbRef.collection("users").document(firebaseAuth.getUid());
+        DocumentReference dbUsers = dbRef.collection("users").document(uID);
         dbUsers.set(intialUserInformation);
+
+        return intialUserInformation;
 
     }
 
-    public void registerUser() {
+    public boolean registerUser(final String studentNumber, final String password, String vpassword) {
 
         //Getting email and password data
-        String email = editTextStudentNumber.getText().toString().trim() + "@students.wits.ac.za";
-        String password = editTextPassword.getText().toString().trim();
-        String verifyPassword = editTextVerifyPassword.getText().toString().trim();
 
-        if (email.equals("")) {
+        if (studentNumber.equals("")) {
             //email is empty
             Toast.makeText(this, "Please enter student number", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
 
         if (password.equals("")) {
             //password is empty
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
-        if (!password.equals(verifyPassword)) {
+        if (!password.equals(vpassword)) {
             //password is empty
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         progressDialogRegister.setMessage("Registering user...");
         progressDialogRegister.show();
-
+        createUser(studentNumber,password);
         //Create user
+        return true;
+    }
+
+    public String createUser(final String studentNumber,final String password){
+
+        final ArrayList<Boolean> arrayList = new ArrayList<>();
+        String email = studentNumber + "@students.wits.ac.za";
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -136,26 +141,31 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
 
                     //Now that user has been registered, sign them in
-                    userRegistrationLogin();
+                    String name = editTextName.getText().toString().trim();
+                    String surname = editTextSurname.getText().toString().trim();
+                    String user_ID = firebaseAuth.getUid();
+                    String YoS = yearsDropdown.getSelectedItem().toString();
+                    saveUserInformation(user_ID,name,surname,YoS,studentNumber);
+                    userRegistrationLogin(studentNumber,password);
                 } else {
                     System.out.println(task.getResult());
-                    ;
                     progressDialogRegister.cancel();
                     Toast.makeText(RegisterActivity.this, "Could not register, try again", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        return email;
+
     }
 
-    public void userRegistrationLogin() {
+    public Intent userRegistrationLogin(String studentNumber,String password) {
 
         //Signs in user
-        String email = editTextStudentNumber.getText().toString().trim() + "@students.wits.ac.za";
-        String password = editTextPassword.getText().toString().trim();
-
-
+        String email = studentNumber + "@students.wits.ac.za";
         progressDialogLogin.setMessage("Logging in user");
         progressDialogLogin.show();
+        final Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
 
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -164,14 +174,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (task.isSuccessful()) {
                     // finish();
                     progressDialogLogin.cancel();
-                    Toast.makeText(getApplicationContext(), "User logged in successfully", Toast.LENGTH_SHORT).show();
-                    saveUserInformation();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     user.sendEmailVerification();
-                    startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                    startActivity(intent);
                 }
             }
         });
+        return intent;
     }
 
 

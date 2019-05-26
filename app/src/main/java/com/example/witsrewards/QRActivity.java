@@ -23,7 +23,7 @@ import static android.Manifest.permission.CAMERA;
 public class QRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int REQUEST_CAMERA = 1;
-    private ZXingScannerView scannerView;
+    public ZXingScannerView scannerView;
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
     @Override
