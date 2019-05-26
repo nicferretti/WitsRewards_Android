@@ -1,6 +1,7 @@
 package com.fourhourdesigns.witsrewards.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -22,9 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +54,10 @@ public class HomeActivity extends AppCompatActivity
     private Map<String, List<String>> IstChild;
     private NavigationManager navigationManager;
     private ImageView avatarImage;
+    private TextView username_tv;
+    private TextView details_tv;
+    private TextView points_tv;
+    private TextView level_tv;
 
 
     @Override
@@ -67,6 +75,7 @@ public class HomeActivity extends AppCompatActivity
             }
         });
         makeNavLayout();
+        getUserInformation();
     }
 
 
@@ -122,11 +131,53 @@ public class HomeActivity extends AppCompatActivity
         }else if (id == R.id.qr) {
             Intent intent = new Intent(HomeActivity.this, QRActivity.class);
             startActivity(intent);
+        }else if (id == R.id.map) {
+            Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+            startActivity(intent);
         }
             //startAnimationFromBackgroundThread();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
+    }
+
+    public void getUserInformation(){
+        username_tv = (TextView)findViewById(R.id.tv_name);
+        details_tv = (TextView)findViewById(R.id.tv_details);
+        points_tv = (TextView)findViewById(R.id.tv_points);
+        level_tv = (TextView)findViewById(R.id.tv_level);
+
+        db.collection("users").document(mAuth.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                Double APoints = documentSnapshot.getDouble("academiaPoints");
+                Double UPoints = documentSnapshot.getDouble("universityPoints");
+                Double BPoints = documentSnapshot.getDouble("businessPoints");
+                int points = (APoints.intValue() + UPoints.intValue() + BPoints.intValue());
+                String level = documentSnapshot.getString("level");
+                String details = documentSnapshot.getString("yos");
+
+                String fullname = (documentSnapshot.getString("name") + " " + documentSnapshot.getString("surname"));
+                String userDetails = details + " Year Student";
+
+                username_tv.setText(fullname);
+                details_tv.setText(userDetails);
+                points_tv.setText(Integer.toString(points));
+                level_tv.setText(level.toUpperCase());
+
+                if(level.equals("bronze")){
+                    level_tv.setTextColor(Color.parseColor("#cd7f32"));
+                }
+
+                if(level.equals("silver")){
+                    level_tv.setTextColor(Color.parseColor("#C0C0C0"));
+                }
+
+                if(level.equals("gold")){
+                    level_tv.setTextColor(Color.parseColor("#FFDF00"));
+                }
+            }
+        });
     }
 }

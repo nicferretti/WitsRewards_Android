@@ -14,6 +14,9 @@
             <item
                 android:id="@+id/qr"
                 android:title="Scan QR code"/>
+            <item
+                android:id="@+id/map"
+                android:title="Map"/>
 
         </menu>
     </item>
