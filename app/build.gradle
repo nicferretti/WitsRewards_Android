@@ -2,8 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
 jacoco {
     toolVersion = '0.8.0'
+}
+
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
+}
+
+tasks.coveralls {
+    dependsOn 'connectedAndroidTest'
+    onlyIf { System.env.'CI' }
 }
 
 android {
