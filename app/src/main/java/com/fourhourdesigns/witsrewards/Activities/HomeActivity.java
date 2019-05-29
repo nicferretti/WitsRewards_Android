@@ -9,6 +9,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,19 +18,18 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.fourhourdesigns.witsrewards.Adapter.EventAdapter;
 import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
 import com.fourhourdesigns.witsrewards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.*;
 import com.squareup.picasso.Picasso;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,12 +37,7 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle;
-    private String[] items;
     private FirebaseFirestore db;
-    private String name;
     private HashMap<String, Object> userInfo;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -58,6 +54,9 @@ public class HomeActivity extends AppCompatActivity
     private TextView details_tv;
     private TextView points_tv;
     private TextView level_tv;
+    private RecyclerView recyclerView;
+    private ArrayList<HashMap<String, Object>> eventList = new ArrayList<>();
+    private EventAdapter eventAdapter;
 
 
     @Override
@@ -67,6 +66,7 @@ public class HomeActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        getEvents();
         db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -78,6 +78,12 @@ public class HomeActivity extends AppCompatActivity
         getUserInformation();
     }
 
+    public void setRecyclerView() {
+        recyclerView = findViewById(R.id.eventRecView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        eventAdapter = new EventAdapter(this, eventList);
+        recyclerView.setAdapter(eventAdapter);
+    }
 
 
 //    private void populateHeader(){
@@ -128,25 +134,25 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.stats) {
             Intent intent = new Intent(HomeActivity.this, StatsActivity.class);
             startActivity(intent);
-        }else if (id == R.id.qr) {
+        } else if (id == R.id.qr) {
             Intent intent = new Intent(HomeActivity.this, QRActivity.class);
             startActivity(intent);
-        }else if (id == R.id.map) {
+        } else if (id == R.id.map) {
             Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
             startActivity(intent);
         }
-            //startAnimationFromBackgroundThread();
+        //startAnimationFromBackgroundThread();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
 
     }
 
-    public void getUserInformation(){
-        username_tv = (TextView)findViewById(R.id.tv_name);
-        details_tv = (TextView)findViewById(R.id.tv_details);
-        points_tv = (TextView)findViewById(R.id.tv_points);
-        level_tv = (TextView)findViewById(R.id.tv_level);
+    public void getUserInformation() {
+        username_tv = (TextView) findViewById(R.id.tv_name);
+        details_tv = (TextView) findViewById(R.id.tv_details);
+        points_tv = (TextView) findViewById(R.id.tv_points);
+        level_tv = (TextView) findViewById(R.id.tv_level);
 
         db.collection("users").document(mAuth.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -166,18 +172,32 @@ public class HomeActivity extends AppCompatActivity
                 points_tv.setText(Integer.toString(points));
                 level_tv.setText(level.toUpperCase());
 
-                if(level.equals("bronze")){
+                if (level.equals("bronze")) {
                     level_tv.setTextColor(Color.parseColor("#cd7f32"));
                 }
 
-                if(level.equals("silver")){
+                if (level.equals("silver")) {
                     level_tv.setTextColor(Color.parseColor("#C0C0C0"));
                 }
 
-                if(level.equals("gold")){
+                if (level.equals("gold")) {
                     level_tv.setTextColor(Color.parseColor("#FFDF00"));
                 }
             }
         });
+    }
+
+    public void getEvents() {
+        db.collection("events")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            eventList.add((HashMap<String, Object>) doc.getData());
+                        }
+                        setRecyclerView();
+                    }
+                });
     }
 }
