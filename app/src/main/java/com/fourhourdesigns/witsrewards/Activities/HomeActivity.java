@@ -37,26 +37,26 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FirebaseFirestore db;
-    private HashMap<String, Object> userInfo;
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
-    private TextView nameTextView;
-    private TextView rankTextView;
-    private View listHeaderView;
-    private ExpandableListView expandableListView;
-    private ExpandableListAdapter adapter;
-    private List<String> IstTitle;
-    private Map<String, List<String>> IstChild;
-    private NavigationManager navigationManager;
-    private ImageView avatarImage;
-    private TextView username_tv;
-    private TextView details_tv;
-    private TextView points_tv;
-    private TextView level_tv;
-    private RecyclerView recyclerView;
-    private ArrayList<HashMap<String, Object>> eventList = new ArrayList<>();
-    private EventAdapter eventAdapter;
+    public FirebaseFirestore db;
+    public HashMap<String, Object> userInfo;
+    public FirebaseAuth mAuth;
+    public FirebaseUser user;
+    public TextView nameTextView;
+    public TextView rankTextView;
+    public View listHeaderView;
+    public ExpandableListView expandableListView;
+    public ExpandableListAdapter adapter;
+    public List<String> IstTitle;
+    public Map<String, List<String>> IstChild;
+    public NavigationManager navigationManager;
+    public ImageView avatarImage;
+    public TextView username_tv;
+    public TextView details_tv;
+    public TextView points_tv;
+    public TextView level_tv;
+    public RecyclerView recyclerView;
+    public ArrayList<HashMap<String, Object>> eventList = new ArrayList<>();
+    public EventAdapter eventAdapter;
 
 
     @Override
@@ -67,22 +67,26 @@ public class HomeActivity extends AppCompatActivity
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
         getEvents();
-        db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot doc = task.getResult();
-                userInfo = (HashMap<String, Object>) doc.getData();
-            }
-        });
+        if (user != null) {
+            db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot doc = task.getResult();
+                    userInfo = (HashMap<String, Object>) doc.getData();
+                }
+            });
+        }
         makeNavLayout();
-        getUserInformation();
+        getUserInformation(mAuth.getUid());
+        setRecyclerView();
     }
 
-    public void setRecyclerView() {
+    public boolean setRecyclerView() {
         recyclerView = findViewById(R.id.eventRecView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventAdapter = new EventAdapter(this, eventList);
         recyclerView.setAdapter(eventAdapter);
+        return true;
     }
 
 
@@ -140,7 +144,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.map) {
             Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
             startActivity(intent);
-        }else if (id == R.id.wquiz) {
+        } else if (id == R.id.wquiz) {
             Intent intent = new Intent(HomeActivity.this, Quiz.class);
             startActivity(intent);
         }
@@ -151,15 +155,21 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    public void getUserInformation() {
+    public boolean getUserInformation(String UID) {
         username_tv = (TextView) findViewById(R.id.tv_name);
         details_tv = (TextView) findViewById(R.id.tv_details);
         points_tv = (TextView) findViewById(R.id.tv_points);
         level_tv = (TextView) findViewById(R.id.tv_level);
+        if(UID == null){
+            return false;
+        }
 
-        db.collection("users").document(mAuth.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        db.collection("users").document(UID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if(documentSnapshot == null){
+                    return;
+                }
                 Double APoints = documentSnapshot.getDouble("academiaPoints");
                 Double UPoints = documentSnapshot.getDouble("universityPoints");
                 Double BPoints = documentSnapshot.getDouble("businessPoints");
@@ -188,9 +198,13 @@ public class HomeActivity extends AppCompatActivity
                 }
             }
         });
+        return true;
     }
 
-    public void getEvents() {
+    public boolean getEvents() {
+        if(user == null){
+            return false;
+        }
         db.collection("events")
                 .orderBy("date", Query.Direction.ASCENDING)
                 .get()
@@ -198,10 +212,10 @@ public class HomeActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot doc : task.getResult()) {
-                            eventList.add((HashMap<String, Object>) doc.getData());
+                            eventAdapter.notifyDataSetChanged();
                         }
-                        setRecyclerView();
                     }
                 });
+        return true;
     }
 }
