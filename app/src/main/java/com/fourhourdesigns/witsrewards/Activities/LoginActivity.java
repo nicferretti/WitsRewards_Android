@@ -1,5 +1,4 @@
 package com.fourhourdesigns.witsrewards.Activities;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.fourhourdesigns.witsrewards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //if(mAuth.getCurrentUser() != null){
-            //finish();
-           // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        //finish();
+        // startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         //}
 
         mAuth = FirebaseAuth.getInstance();
@@ -49,53 +49,75 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                registerOnClick();
             }
         });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userLogin();
+                loginOnClick();
             }
         });
     }
 
-    private void userLogin() {
-        String studentNumber = loginStudentEmail.getText().toString().trim();
+    public boolean loginOnClick(){
+        String studentNumber = loginStudentEmail.getText().toString();
+        String password = loginPassword.getText().toString();
+        userLogin(studentNumber,password);
+        return true;
+    }
+
+    public Intent registerOnClick(){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        return intent;
+    }
+
+    public String getPassword() {
         String password = loginPassword.getText().toString().trim();
-        String email = studentNumber + "@students.wits.ac.za";
-
-        if (studentNumber.equals("")) {
-            //email is empty
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-
         if (password.equals("")) {
             //password is empty
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
-            return;
+        }
+        return password;
+    }
+
+    public String getStudentNumber() {
+        String studentNumber = loginStudentEmail.getText().toString().trim();
+
+        if (studentNumber.equals("")) {
+            //email is empty
+            Toast.makeText(this, "Please enter student number", Toast.LENGTH_SHORT).show();
+        }
+        return studentNumber;
+    }
+
+    public Intent userLogin(String studentNumber,String password) {
+        String email = studentNumber + "@students.wits.ac.za";
+        final Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+
+        if (studentNumber.isEmpty() || password.isEmpty()) {
+            return null;
         }
 
         progressDialog.setMessage("Logging in user");
         progressDialog.show();
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 progressDialog.dismiss();
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    startActivity(intent);
                 }
-                if(!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     error.setText("Invalid login name or password");
                 }
             }
         });
+        return intent;
     }
 }
 
