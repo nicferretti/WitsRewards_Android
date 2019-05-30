@@ -32,7 +32,6 @@ import java.util.List;
 
 public class StatsActivity extends AppCompatActivity {
 
-    private static String TAG = "StatsActivity";
     private FirebaseFirestore mFirestore;
     private FirebaseAuth mAuth;
     private PieChart StatsPieChart;
@@ -41,8 +40,6 @@ public class StatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
-        Log.d(TAG,"onCreate: starting to create chart");
-
 
         //Retrieving user data
         mFirestore = FirebaseFirestore.getInstance();
@@ -88,28 +85,9 @@ public class StatsActivity extends AppCompatActivity {
         StatsPieChart.setTransparentCircleRadius(60);
         StatsPieChart.setTransparentCircleColor(Color.WHITE);
         StatsPieChart.animateY(1250, Easing.EaseInOutCubic);
-
-        StatsPieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG,"Value selected from chart");
-                Log.d(TAG,"onValueSelected: " + e.toString());
-                Log.d(TAG,"onValueSelected: " + h.toString());
-                int pos = e.toString().indexOf("y: ");
-                String points = e.toString().substring(17,21);
-
-                Toast.makeText(StatsActivity.this,points,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
     }
 
     public void addData(ArrayList<Integer> ydata, String[] xdata, String level){
-        Log.d(TAG, "addData started");
 
         //Creating center text
         String centerText = "WitsRewards points" + "\n" + "Level: ";
@@ -137,7 +115,7 @@ public class StatsActivity extends AppCompatActivity {
 
         StatsPieChart.setCenterText(TextUtils.concat(sp,"",sb));
 
-        //Adding data into a arraylist of PieEntrys
+        //Adding data into a arraylist of PieEntries
         ArrayList<PieEntry> yEntries = new ArrayList<>();
 
         for(int i = 0; i < ydata.size(); i++){
