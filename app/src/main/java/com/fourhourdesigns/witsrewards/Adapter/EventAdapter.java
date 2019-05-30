@@ -11,16 +11,15 @@ import android.widget.TextView;
 import com.fourhourdesigns.witsrewards.R;
 import com.google.firebase.Timestamp;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
-public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
-    ArrayList<HashMap<String,Object>> mDataset;
+    ArrayList<HashMap<String, Object>> mDataset;
     Context mContext;
+
     public EventAdapter(Context context, ArrayList<HashMap<String, Object>> myDataset) {
         this.mDataset = myDataset;
         this.mContext = context;
@@ -61,7 +60,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             String date = sfd.format(timestamp.toDate());
             this.eventText.setText("Description: " +
                     item.get("description")
-                    +"\n"
+                    + "\n"
                     + "Date: "
                     + date
                     + "\n"

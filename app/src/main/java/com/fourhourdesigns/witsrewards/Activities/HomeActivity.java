@@ -63,16 +63,21 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        username_tv = (TextView) findViewById(R.id.tv_name);
+        details_tv = (TextView) findViewById(R.id.tv_details);
+        points_tv = (TextView) findViewById(R.id.tv_points);
+        level_tv = (TextView) findViewById(R.id.tv_level);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        getEvents();
         if (user != null) {
             db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     DocumentSnapshot doc = task.getResult();
                     userInfo = (HashMap<String, Object>) doc.getData();
+                    getEvents();
+
                 }
             });
         }
@@ -156,10 +161,6 @@ public class HomeActivity extends AppCompatActivity
     }
 
     public boolean getUserInformation(String UID) {
-        username_tv = (TextView) findViewById(R.id.tv_name);
-        details_tv = (TextView) findViewById(R.id.tv_details);
-        points_tv = (TextView) findViewById(R.id.tv_points);
-        level_tv = (TextView) findViewById(R.id.tv_level);
         if(UID == null){
             return false;
         }
@@ -179,31 +180,36 @@ public class HomeActivity extends AppCompatActivity
 
                 String fullname = (documentSnapshot.getString("name") + " " + documentSnapshot.getString("surname"));
                 String userDetails = details + " Year Student";
+                setPoints(fullname,userDetails,points,level);
 
-                username_tv.setText(fullname);
-                details_tv.setText(userDetails);
-                points_tv.setText(Integer.toString(points));
-                level_tv.setText(level.toUpperCase());
-
-                if (level.equals("bronze")) {
-                    level_tv.setTextColor(Color.parseColor("#cd7f32"));
-                }
-
-                if (level.equals("silver")) {
-                    level_tv.setTextColor(Color.parseColor("#C0C0C0"));
-                }
-
-                if (level.equals("gold")) {
-                    level_tv.setTextColor(Color.parseColor("#FFDF00"));
-                }
             }
         });
         return true;
     }
 
-    public boolean getEvents() {
+    public boolean setPoints(String fullname, String userDetails, int points, String level){
+        username_tv.setText(fullname);
+        details_tv.setText(userDetails);
+        points_tv.setText(Integer.toString(points));
+        level_tv.setText(level.toUpperCase());
+
+        if (level.equals("bronze")) {
+            level_tv.setTextColor(Color.parseColor("#cd7f32"));
+        }
+
+        if (level.equals("silver")) {
+            level_tv.setTextColor(Color.parseColor("#C0C0C0"));
+        }
+
+        if (level.equals("gold")) {
+            level_tv.setTextColor(Color.parseColor("#FFDF00"));
+        }
+        return true;
+    }
+
+    public void getEvents() {
         if(user == null){
-            return false;
+            return;
         }
         db.collection("events")
                 .orderBy("date", Query.Direction.ASCENDING)
@@ -211,11 +217,17 @@ public class HomeActivity extends AppCompatActivity
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot doc : task.getResult()) {
-                            eventAdapter.notifyDataSetChanged();
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot doc : task.getResult()) {
+                                eventList.add((HashMap<String, Object>) doc.getData());
+                                eventAdapter.notifyDataSetChanged();
+                            }
+                        }
+                        else{
+                            System.out.println("PENIS");
+                            System.out.println(task.getException());
                         }
                     }
                 });
-        return true;
     }
 }
