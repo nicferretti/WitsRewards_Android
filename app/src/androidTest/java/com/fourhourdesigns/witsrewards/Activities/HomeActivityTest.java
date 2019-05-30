@@ -95,8 +95,4 @@ public class HomeActivityTest {
         assertTrue(mActivity.setRecyclerView());
     }
 
-    @Test
-    public void getEvents() {
-        assertFalse(mActivity.getEvents());
-    }
 }
