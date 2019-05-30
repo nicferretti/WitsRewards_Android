@@ -1,5 +1,6 @@
 package com.fourhourdesigns.witsrewards.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,16 +9,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.fourhourdesigns.witsrewards.Adapter.EventAdapter;
 import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
 import com.fourhourdesigns.witsrewards.R;
@@ -57,6 +56,7 @@ public class HomeActivity extends AppCompatActivity
     public RecyclerView recyclerView;
     public ArrayList<HashMap<String, Object>> eventList = new ArrayList<>();
     public EventAdapter eventAdapter;
+    EditText codeInput;
 
 
     @Override
@@ -152,6 +152,57 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.wquiz) {
             Intent intent = new Intent(HomeActivity.this, Quiz.class);
             startActivity(intent);
+        } else if (id == R.id.redeem) {
+
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Redeem Code");
+            builder.setIcon(R.drawable.ic_launcher_background);
+            builder.setMessage("Enter Given Code:");
+            codeInput = new EditText(this);
+            builder.setView(codeInput);
+
+            builder.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
+                @Override
+
+                public void onClick(DialogInterface dialog, int which) {
+                    String[] codes ={
+                            "AC5X-38G4-YGVP-QBK6",
+                            "8P7F-JV2R-QSYZ-B33W",
+                            "J68D-TMNC-YC7V-X35V",
+                            "RVGU-DRVG-PP6E-6HNQ",
+                            "JK7R-A4JR-4KTE-ECBS",
+                            "PWCE-GJZS-MP3M-RK7Q",
+                            "4YHV-FWCP-CUPJ-M6KZ",
+                            "BNUJ-6UVL-WWVX-TMPG",
+                            "965X-SLPY-UXFD-QL62"
+                    };
+                    String text = codeInput.getText().toString();
+                    for(int i = 0; i<codes.length;i++) {
+                        if(text.equals(codes[i])){
+                            Toast.makeText(getApplicationContext(),"Congrats! +10 Points",Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Incorrect Code",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            final AlertDialog ad = builder.create();
+
+            ad.show();
+
+            Button enterBut = ad.getButton(DialogInterface.BUTTON_POSITIVE);
+            enterBut.setTextColor(Color.BLUE);
+            Button cancelBut = ad.getButton(DialogInterface.BUTTON_NEGATIVE);
+            cancelBut.setTextColor(Color.BLUE);
         }
         //startAnimationFromBackgroundThread();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
