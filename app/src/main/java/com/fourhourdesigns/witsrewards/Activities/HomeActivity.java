@@ -169,8 +169,18 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this, MapActivity.class);
             startActivity(intent);
         } else if (id == R.id.wquiz) {
-            Intent intent = new Intent(HomeActivity.this, Quiz.class);
-            startActivity(intent);
+
+            db = FirebaseFirestore.getInstance();
+            db.collection("users").document(mAuth.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    Double UPoints = documentSnapshot.getDouble("universityPoints");
+                    Intent intent = new Intent(HomeActivity.this, Quiz.class);
+                    intent.putExtra("UPOINTS",UPoints);
+                    startActivity(intent);
+                }
+            });
+
         }
         //startAnimationFromBackgroundThread();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -252,4 +262,5 @@ public class HomeActivity extends AppCompatActivity
                     }
                 });
     }
+
 }

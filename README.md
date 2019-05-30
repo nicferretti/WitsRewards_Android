@@ -1,6 +1,6 @@
 # Badges
 
-[![Build Status](https://travis-ci.org/nicferretti/WitsRewards_Android.svg?branch=feature%2Fci)](https://travis-ci.org/nicferretti/WitsRewards_Android)
+[![Build Status](https://travis-ci.org/nicferretti/WitsRewards_Android.svg?branch=develop)](https://travis-ci.org/nicferretti/WitsRewards_Android)
 
 [![Coverage Status](https://coveralls.io/repos/github/nicferretti/WitsRewards_Android/badge.svg?branch=develop)](https://coveralls.io/github/nicferretti/WitsRewards_Android?branch=develop)
 
