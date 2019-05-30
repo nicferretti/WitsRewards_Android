@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.fourhourdesigns.witsrewards.Models.Venues;
 import com.fourhourdesigns.witsrewards.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
@@ -32,6 +33,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 import java.io.IOException;
 import java.util.List;
@@ -58,6 +61,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        if (Venues.INSTANCE.getVenues().isEmpty()) {
+            Venues.INSTANCE.fetchAllVenues(new Function2<Boolean, Error, Unit>() {
+                @Override
+                public Unit invoke(Boolean success, Error error) {
+                    if (success) {
+                        System.out.println("Successfuly got venues");
+                    } else {
+                        System.out.println(error);
+                    }
+                    return null;
+                }
+            });
+        } else {
+
+        }
     }
 
 
@@ -210,4 +229,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+//    private void addVenueMarkersToMap() {
+//        for (venue )
+//    }
 }

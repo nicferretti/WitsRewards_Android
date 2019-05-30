@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.fourhourdesigns.witsrewards.Adapter.EventAdapter;
 import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
+import com.fourhourdesigns.witsrewards.Models.User;
+import com.fourhourdesigns.witsrewards.Models.Venues;
 import com.fourhourdesigns.witsrewards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 import com.squareup.picasso.Picasso;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -84,6 +88,7 @@ public class HomeActivity extends AppCompatActivity
         makeNavLayout();
         getUserInformation(mAuth.getUid());
         setRecyclerView();
+        fetchVenues();
     }
 
     public boolean setRecyclerView() {
@@ -111,6 +116,20 @@ public class HomeActivity extends AppCompatActivity
 //                .endConfig()
 //                .buildRound(Character.toString(name.charAt(0)), ColorGenerator.MATERIAL.getRandomColor());
 //    }
+
+    private void fetchVenues() {
+        Venues.INSTANCE.fetchAllVenues(new Function2<Boolean, Error, Unit>() {
+            @Override
+            public Unit invoke(Boolean success, Error error) {
+                if (success) {
+                    System.out.println("Successfuly got venues");
+                } else {
+                    System.out.println(error);
+                }
+                return null;
+            }
+        });
+    }
 
     public void makeNavLayout() {
 
@@ -147,7 +166,7 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this, QRActivity.class);
             startActivity(intent);
         } else if (id == R.id.map) {
-            Intent intent = new Intent(HomeActivity.this, MapsActivity.class);
+            Intent intent = new Intent(HomeActivity.this, MapActivity.class);
             startActivity(intent);
         } else if (id == R.id.wquiz) {
             Intent intent = new Intent(HomeActivity.this, Quiz.class);
@@ -168,9 +187,12 @@ public class HomeActivity extends AppCompatActivity
         db.collection("users").document(UID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot == null){
+                if(documentSnapshot == null) {
                     return;
                 }
+
+                User.Companion.setCurrent(new User(documentSnapshot));
+
                 Double APoints = documentSnapshot.getDouble("academiaPoints");
                 Double UPoints = documentSnapshot.getDouble("universityPoints");
                 Double BPoints = documentSnapshot.getDouble("businessPoints");

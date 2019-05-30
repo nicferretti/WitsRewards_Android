@@ -20,6 +20,9 @@
             <item
                 android:id="@+id/wquiz"
                 android:title="Weekly Quiz"/>
+            <item
+                    android:id="@+id/redeem"
+                    android:title="Redeem Code"/>
 
         </menu>
     </item>

@@ -70,10 +70,10 @@ public class Quiz extends AppCompatActivity {
                     updateScore(mScore);
                     updateQuestion();
 
-                    Toast.makeText(Quiz.this, "correct", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Quiz.this, "Correct", Toast.LENGTH_LONG).show();
 
                 }else {
-                    Toast.makeText(Quiz.this, "wrong", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Quiz.this, "Wrong", Toast.LENGTH_LONG).show();
                     updateQuestion();
                 }
             }
@@ -92,10 +92,10 @@ public class Quiz extends AppCompatActivity {
                     updateScore(mScore);
                     updateQuestion();
 
-                    Toast.makeText(Quiz.this, "correct", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Quiz.this, "Correct", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    Toast.makeText(Quiz.this, "wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Quiz.this, "Wrong", Toast.LENGTH_SHORT).show();
                     updateQuestion();
                 }
             }
@@ -105,25 +105,31 @@ public class Quiz extends AppCompatActivity {
 
     }
 
-    private void updateQuestion(){
-        mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
+
+    private void updateQuestion() {
+        if (mQuestionNumber < mQuestionLibrary.getLength()){
+            mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
         mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
         mButtonChoice2.setText(mQuestionLibrary.getChoice2(mQuestionNumber));
         mButtonChoice3.setText(mQuestionLibrary.getChoice3(mQuestionNumber));
 
         mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
-        if(mQuestionNumber<=3){
-        mQuestionNumber++;}
+
+        mQuestionNumber++;
     }
+        else{
+            Intent intent = new Intent(Quiz.this, HomeActivity.class);
+            startActivity(intent);
+            Toast.makeText(Quiz.this, "Thanks for playing the weekly quiz, come back next week to win more points", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 
     private void updateScore(int point) {
         mScoreView.setText("" + mScore);
     }
 
 
-    public void goHome(View view) {
-        if(mQuestionNumber ==3){
-        Intent intent = new Intent (this, HomeActivity.class);
-        startActivity(intent);
-    }}
+
 }
