@@ -68,7 +68,7 @@ public class StatsActivity extends AppCompatActivity {
         mFirestore.collection("users").document(UID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot == null){
+                if(documentSnapshot == null || documentSnapshot.getDouble("academiaPoints")==null){
                     return;
                 }
                 System.out.println("DATA OVER HERE:   "+ documentSnapshot.getData());

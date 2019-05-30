@@ -1,10 +1,14 @@
+plugins {
+    id "com.github.kt3k.coveralls" version "2.6.3"
+}
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'jacoco'
 jacoco {
     toolVersion = "0.7.1.201405082137"
 }
+
 
 android {
     compileSdkVersion 28
@@ -93,8 +97,13 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['createDevDebugCoverageRep
         html.enabled = true
     }
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    // The lines below make sure we can report against Kotlin and exclude some Android Stuff
+    def fileFilter = [
+            '**/*Activity.class',
+            '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
+            '**/*Test*.*', 'android/**/*.*'
+    ]
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])
