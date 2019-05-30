@@ -6,20 +6,19 @@ public class QuestionsLibrary {
             "In what year was Wits University established?",
             "Roughly how many students attend Wits?",
             "What building on main campus has the most lecture venues?",
-            "Thanks for playing the weekly quiz. Come back next week to earn more points!"
+
     };
 
     private String quizOptions[][] = {
 
             {"1922","1888", "1995","1966"},
             {"21000","89000","38000","49000"},
-            {"Central Block","Senate House","FNB Building", "Wits Science Stadium"},
-            {"Done","","",""}
+            {"Central Block","Senate House","FNB Building", "Wits Science Stadium"}
 
     };
 
     private String correctAnswers[] = {
-            "1922", "38000", "Central Block", "Done"
+            "1922", "38000", "Central Block"
     };
 
 
@@ -50,5 +49,9 @@ public class QuestionsLibrary {
     public String getCorrectAnswer(int a){
         String answer = correctAnswers[a];
         return answer;
+    }
+
+    public int getLength(){
+        return quizOptions.length;
     }
 }

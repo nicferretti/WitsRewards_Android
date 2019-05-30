@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.*;
 import com.squareup.picasso.Picasso;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -182,10 +183,11 @@ public class HomeActivity extends AppCompatActivity
                     for(int i = 0; i<codes.length;i++) {
                         if(text.equals(codes[i])){
                             Toast.makeText(getApplicationContext(),"Congrats! +10 Points",Toast.LENGTH_LONG).show();
+                            codes = ArrayUtils.removeElement(codes, i);
                         }
-                        else{
-                            Toast.makeText(getApplicationContext(),"Incorrect Code",Toast.LENGTH_LONG).show();
-                        }
+                   //     else if(!text.equals(codes[i])){
+                    //        Toast.makeText(getApplicationContext(),"Incorrect Code",Toast.LENGTH_LONG).show();
+                     //   }
                     }
                 }
             });
