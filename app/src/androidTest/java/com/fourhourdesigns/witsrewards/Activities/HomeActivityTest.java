@@ -36,9 +36,18 @@ public class HomeActivityTest {
         mActivity = mActivityTestRule.getActivity();
     }
 
-//    @Test
-//    public void onCreate() {
-//    }
+    @Test
+    public void onCreate() {
+
+        TextView username_tv = mActivity.username_tv;
+        TextView details_tv = mActivity.details_tv;
+        TextView points_tv = mActivity.points_tv;
+        TextView level_tv = mActivity.level_tv;
+        assertNotNull(username_tv);
+        assertNotNull(details_tv);
+        assertNotNull(points_tv);
+        assertNotNull(level_tv);
+    }
 
     @Test
     @UiThreadTest
@@ -64,14 +73,21 @@ public class HomeActivityTest {
     @Test
     public void getUserInformation() {
         assertTrue(mActivity.getUserInformation("tVdaEPFAlnUpOxEeJ8er1NC6ntz2"));
+    }
+    @Test
+    @UiThreadTest
+    public void setPoints() {
         TextView username_tv = mActivity.username_tv;
         TextView details_tv = mActivity.details_tv;
         TextView points_tv = mActivity.points_tv;
         TextView level_tv = mActivity.level_tv;
-        assertNotNull(username_tv);
-        assertNotNull(details_tv);
-        assertNotNull(points_tv);
-        assertNotNull(level_tv);
+        mActivity.setPoints("test user","1st",30,"bronze");
+        System.out.println("POINTS    " + points_tv.getText().toString());
+        System.out.println("LEVEL    " + level_tv.getText().toString());
+        assertTrue(username_tv.getText().toString().equals("test user"));
+        assertTrue(details_tv.getText().toString().equals("1st"));
+        assertTrue(points_tv.getText().toString().equals("30"));
+        assertTrue(level_tv.getText().toString().equals("BRONZE"));
     }
     @Test
     @UiThreadTest
