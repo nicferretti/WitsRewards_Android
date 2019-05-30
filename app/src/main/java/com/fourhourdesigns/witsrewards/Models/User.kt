@@ -45,8 +45,8 @@ class User {
         universityPoints = (userDocument.getDouble("universityPoints") ?: 0.0).toInt()
     }
 
-    fun checkIntoVenue(completion: (success: Boolean, error: Error?) -> Unit) {
-        universityPoints += 2
+    fun addUniversityPoints(points: Int, completion: (success: Boolean, error: Error?) -> Unit) {
+        universityPoints += points
         FirebaseFirestore.getInstance().collection("users").document(id).update(
             "universityPoints", universityPoints
         ).addOnSuccessListener {

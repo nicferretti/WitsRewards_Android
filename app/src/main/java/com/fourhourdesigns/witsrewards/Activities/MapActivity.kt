@@ -130,7 +130,7 @@ class MapActivity: AppCompatActivity(), LocationHelperDelegate {
                         .setCancelable(true)
                         .setPositiveButton("Check In",  { _, _ ->
                             if (venue.coordinates.distanceMFrom(LocationHelper.shared.currentLocation) <= 50) {
-                                User.current.checkIntoVenue { success, error ->
+                                User.current.addUniversityPoints(2) { success, error ->
                                     if (success) {
                                         Toast.makeText(this@MapActivity, "Successfully checked in. Added 2 points.", Toast.LENGTH_LONG).show()
                                     } else {
