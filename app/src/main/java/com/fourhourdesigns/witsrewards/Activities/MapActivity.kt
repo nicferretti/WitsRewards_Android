@@ -16,6 +16,7 @@ import com.fourhourdesigns.witsrewards.App
 import com.fourhourdesigns.witsrewards.Extensions.distanceMFrom
 import com.fourhourdesigns.witsrewards.Helper.LocationHelper
 import com.fourhourdesigns.witsrewards.Helper.LocationHelperDelegate
+import com.fourhourdesigns.witsrewards.Models.User
 import com.fourhourdesigns.witsrewards.Models.Venues
 import com.fourhourdesigns.witsrewards.R
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -129,7 +130,15 @@ class MapActivity: AppCompatActivity(), LocationHelperDelegate {
                         .setCancelable(true)
                         .setPositiveButton("Check In",  { _, _ ->
                             if (venue.coordinates.distanceMFrom(LocationHelper.shared.currentLocation) <= 50) {
-                                Toast.makeText(this@MapActivity, "Successfully checked in.", Toast.LENGTH_LONG).show()
+                                User.current.checkIntoVenue { success, error ->
+                                    if (success) {
+                                        Toast.makeText(this@MapActivity, "Successfully checked in. Added 2 points.", Toast.LENGTH_LONG).show()
+                                    } else {
+                                        if (error != null) {
+                                            Toast.makeText(this@MapActivity, "Error checking in: ${error.localizedMessage}", Toast.LENGTH_LONG).show()
+                                        }
+                                    }
+                                }
                             } else {
                                 Toast.makeText(this@MapActivity, "Unable to check in from outside venue's vacinity.", Toast.LENGTH_LONG).show()
                             }

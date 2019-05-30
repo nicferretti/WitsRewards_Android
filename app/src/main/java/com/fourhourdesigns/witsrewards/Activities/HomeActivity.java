@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.fourhourdesigns.witsrewards.Adapter.EventAdapter;
 import com.fourhourdesigns.witsrewards.Interface.NavigationManager;
+import com.fourhourdesigns.witsrewards.Models.User;
 import com.fourhourdesigns.witsrewards.Models.Venues;
 import com.fourhourdesigns.witsrewards.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -186,9 +187,12 @@ public class HomeActivity extends AppCompatActivity
         db.collection("users").document(UID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot == null){
+                if(documentSnapshot == null) {
                     return;
                 }
+
+                User.Companion.setCurrent(new User(documentSnapshot));
+
                 Double APoints = documentSnapshot.getDouble("academiaPoints");
                 Double UPoints = documentSnapshot.getDouble("universityPoints");
                 Double BPoints = documentSnapshot.getDouble("businessPoints");
