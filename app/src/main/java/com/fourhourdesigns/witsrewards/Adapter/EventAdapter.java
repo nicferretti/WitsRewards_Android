@@ -18,11 +18,9 @@ import java.util.HashMap;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     ArrayList<HashMap<String, Object>> mDataset;
-    Context mContext;
 
-    public EventAdapter(Context context, ArrayList<HashMap<String, Object>> myDataset) {
+    public EventAdapter(ArrayList<HashMap<String, Object>> myDataset) {
         this.mDataset = myDataset;
-        this.mContext = context;
     }
 
     @NonNull

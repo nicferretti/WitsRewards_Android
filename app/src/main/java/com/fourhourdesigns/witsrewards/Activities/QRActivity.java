@@ -21,17 +21,16 @@ import static android.Manifest.permission.CAMERA;
 public class QRActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int REQUEST_CAMERA = 1;
-    private ZXingScannerView scannerView;
+    public ZXingScannerView scannerView;
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
+    int currentApiVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
-        int currentApiVersion = Build.VERSION.SDK_INT;
-
+        scannerView = new ZXingScannerView(this);
+        setApiVersion(Build.VERSION.SDK_INT);
         if(currentApiVersion >=  Build.VERSION_CODES.M)
         {
             if(checkPermission())
@@ -45,14 +44,20 @@ public class QRActivity extends AppCompatActivity implements ZXingScannerView.Re
         }
     }
 
-    private boolean checkPermission()
+    public boolean setApiVersion(int sdk){
+        currentApiVersion = sdk;
+        return true;
+    }
+
+    public boolean checkPermission()
     {
         return (ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA) == PackageManager.PERMISSION_GRANTED);
     }
 
-    private void requestPermission()
+    public boolean requestPermission()
     {
         ActivityCompat.requestPermissions(this, new String[]{CAMERA}, REQUEST_CAMERA);
+        return true;
     }
 
     @Override

@@ -16,6 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
@@ -24,8 +26,9 @@ import static org.junit.Assert.*;
 public class StatsActivityTest {
 
     @Rule
-    public ActivityTestRule<StatsActivity> mActivityTestRule = new ActivityTestRule<StatsActivity>(StatsActivity.class,true,true);
-    private  StatsActivity mActivity = null;
+    public ActivityTestRule<StatsActivity> mActivityTestRule = new ActivityTestRule<StatsActivity>(StatsActivity.class, true, true);
+    private StatsActivity mActivity = null;
+
     @Before
     public void setUp() throws Exception {
         mActivity = mActivityTestRule.getActivity();
@@ -40,7 +43,17 @@ public class StatsActivityTest {
     }
 
     @Test
-    public void testAddData(){
+    public void getPoints() {
+        assertTrue(mActivity.getPoints("testuser"));
+    }
+
+    @Test
+    public void addData() {
+        assertTrue(mActivity.addData(new ArrayList<Integer>(),new String[]{},"bronze"));
+    }
+
+    @Test
+    public void testAddData() {
 
     }
 

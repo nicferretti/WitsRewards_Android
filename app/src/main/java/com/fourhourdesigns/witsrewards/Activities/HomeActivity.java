@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity
     public boolean setRecyclerView() {
         recyclerView = findViewById(R.id.eventRecView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        eventAdapter = new EventAdapter(this, eventList);
+        eventAdapter = new EventAdapter(eventList);
         recyclerView.setAdapter(eventAdapter);
         return true;
     }

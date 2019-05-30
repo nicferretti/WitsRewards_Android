@@ -105,7 +105,6 @@ public class Quiz extends AppCompatActivity {
 
     }
 
-
     private void updateQuestion(){
         mQuestionView.setText(mQuestionLibrary.getQuestion(mQuestionNumber));
         mButtonChoice1.setText(mQuestionLibrary.getChoice1(mQuestionNumber));
@@ -115,11 +114,7 @@ public class Quiz extends AppCompatActivity {
         mAnswer = mQuestionLibrary.getCorrectAnswer(mQuestionNumber);
         if(mQuestionNumber<=3){
         mQuestionNumber++;}
-
-
     }
-
-
 
     private void updateScore(int point) {
         mScoreView.setText("" + mScore);
