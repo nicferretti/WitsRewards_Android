@@ -37,6 +37,8 @@ public class HomeActivityTest {
     }
 
     @Test
+    @UiThreadTest
+
     public void onCreate() {
 
         TextView username_tv = mActivity.username_tv;
@@ -64,6 +66,7 @@ public class HomeActivityTest {
     }
 
     @Test
+    @UiThreadTest
     public void onNavigationFirstItemItemSelected() {
         NavigationView navigationView = mActivity.findViewById(R.id.nav_view);
         MenuItem menueItem=navigationView.getMenu().getItem(0);

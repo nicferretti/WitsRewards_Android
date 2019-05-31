@@ -197,7 +197,7 @@ public class HomeActivity extends AppCompatActivity
         db.collection("users").document(UID).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if(documentSnapshot == null) {
+                if(documentSnapshot == null || documentSnapshot.getDouble("academiaPoints") == null ||documentSnapshot.getDouble("universityPoints") == null || documentSnapshot.getDouble("businessPoints") == null) {
                     return;
                 }
 

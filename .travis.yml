@@ -24,11 +24,5 @@ before_script:
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
-script: ./gradlew assembleDebug
-
-after_success:
-  - ./gradlew jacocoTestReport coveralls
-
-after_failure:
-  - ./gradlew jacocoTestReport coveralls
-
+script:
+  - ./gradlew connectedAndroidTest coveralls
