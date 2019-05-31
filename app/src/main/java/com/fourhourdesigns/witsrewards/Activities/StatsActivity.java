@@ -87,6 +87,7 @@ public class StatsActivity extends AppCompatActivity {
 
                 ArrayList<Integer> Points = new ArrayList<>();
 
+
                 for (Double d : temp) {
                     Points.add(d.intValue());
                 }
