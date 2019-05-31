@@ -91,7 +91,7 @@ public class StatsActivity extends AppCompatActivity {
                     Points.add(d.intValue());
                 }
                 String[] labels = {"Academia Points: " + APoints.intValue() + "/30", "University Points: " + UPoints.intValue() + "/30", "Business Points: " + BPoints.intValue() + "/40",
-                        "Points until upgrade: " + sum.intValue() + "/100"};
+                        "Points until upgrade: " + (100-sum.intValue()) + "/100"};
 
                 addData(Points, labels, level);
             }

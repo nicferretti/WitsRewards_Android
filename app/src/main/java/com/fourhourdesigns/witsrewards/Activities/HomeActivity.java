@@ -40,6 +40,7 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public FirebaseFirestore db;
+    public FirebaseFirestore de;
     public HashMap<String, Object> userInfo;
     public FirebaseAuth mAuth;
     public FirebaseUser user;
@@ -73,6 +74,7 @@ public class HomeActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+        de = FirebaseFirestore.getInstance();
         if (user != null) {
             db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -210,7 +212,22 @@ public class HomeActivity extends AppCompatActivity
                     String text = codeInput.getText().toString();
 
                     if(codeList.contains(text)) {
-                        Toast.makeText(getApplicationContext(), "Congrats! +10 Points", Toast.LENGTH_LONG).show();
+
+                                DocumentReference ref = db.collection("users").document(mAuth.getUid());
+                                ref.update("universityPoints", (5.0)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+
+
+                                        } else {
+
+
+                                        }
+                                    }
+                                });
+
+                        Toast.makeText(getApplicationContext(), "Congrats! +5 Points", Toast.LENGTH_LONG).show();
 
                     }
                              else {
@@ -315,5 +332,7 @@ public class HomeActivity extends AppCompatActivity
                     }
                 });
     }
+
+
 
 }
