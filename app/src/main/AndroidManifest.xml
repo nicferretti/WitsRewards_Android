@@ -17,6 +17,7 @@
     <uses-feature android:name="android.hardware.camera2.autofocus"/>
 
     <application
+            android:name=".App"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -30,7 +31,7 @@
                 android:value="@string/google_maps_key"/>
 
         <activity
-                android:name=".Activities.MapsActivity"
+                android:name=".Activities.MapActivity"
                 android:label="@string/title_activity_maps">
         </activity>
         <activity
@@ -42,6 +43,9 @@
                 android:name=".Activities.AboutActivity"
                 android:label="@string/title_activity_about"
                 android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activities.Quiz"
+                  android:label="QuizActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".Activities.RegisterActivity"
                 android:label="@string/title_activity_register"
