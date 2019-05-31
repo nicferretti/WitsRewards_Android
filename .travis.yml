@@ -28,3 +28,6 @@ script: ./gradlew assembleDebug
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
+
+after_failure:
+  - ./gradlew jacocoTestReport coveralls
